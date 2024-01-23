@@ -19,12 +19,11 @@ import { toString } from "../fable_modules/Thoth.Fetch.3.0.1/../Thoth.Json.10.1.
 import { Auto_generateBoxedDecoderCached_Z6670B51 } from "../fable_modules/Thoth.Json.10.1.0/./Decode.fs.js";
 import { fromString } from "../fable_modules/Thoth.Fetch.3.0.1/../Thoth.Json.10.1.0/Decode.fs.js";
 import { createObj, uncurry2 } from "../fable_modules/fable-library.4.1.4/Util.js";
+import { RouterModule_nav } from "../fable_modules/Feliz.Router.4.0.0/./Router.fs.js";
 import { join, printf, toConsole } from "../fable_modules/fable-library.4.1.4/String.js";
 import { createElement } from "react";
 import { Helpers_combineClasses } from "../fable_modules/Feliz.Bulma.3.0.0/./ElementBuilders.fs.js";
 import { Interop_reactApi } from "../fable_modules/Feliz.2.7.0/./Interop.fs.js";
-import { ProgramModule_mkProgram, ProgramModule_run } from "../fable_modules/Fable.Elmish.4.1.0/program.fs.js";
-import { Program_withReactSynchronous } from "../fable_modules/Fable.Elmish.React.4.0.0/react.fs.js";
 
 export class Login extends Record {
     constructor(username, password) {
@@ -35,7 +34,7 @@ export class Login extends Record {
 }
 
 export function Login_$reflection() {
-    return record_type("LoginPage.Login", [], Login, () => [["username", string_type], ["password", string_type]]);
+    return record_type("Login.Login", [], Login, () => [["username", string_type], ["password", string_type]]);
 }
 
 export function Login_get_Decoder() {
@@ -48,7 +47,7 @@ export function Login_get_Decoder() {
 /**
  * Transform Login -> JSON
  */
-export function Login_Encoder_5FECCC18(login) {
+export function Login_Encoder_Z7C94CB5(login) {
     return object_1([["username", login.username], ["password", login.password]]);
 }
 
@@ -60,7 +59,7 @@ export class Model extends Record {
 }
 
 export function Model_$reflection() {
-    return record_type("LoginPage.Model", [], Model, () => [["login", Login_$reflection()]]);
+    return record_type("Login.Model", [], Model, () => [["login", Login_$reflection()]]);
 }
 
 export class Msg extends Union {
@@ -75,7 +74,7 @@ export class Msg extends Union {
 }
 
 export function Msg_$reflection() {
-    return union_type("LoginPage.Msg", [], Msg, () => [[["Item", string_type]], [["Item", string_type]], [["Item", class_type("Browser.Types.Event", void 0)]], [["Item", string_type]], [["Item", class_type("System.Exception")]]]);
+    return union_type("Login.Msg", [], Msg, () => [[["Item", string_type]], [["Item", string_type]], [["Item", class_type("Browser.Types.Event", void 0)]], [["Item", string_type]], [["Item", class_type("System.Exception")]]]);
 }
 
 export function init() {
@@ -93,7 +92,7 @@ export function update(msg, model) {
             ev.preventDefault();
             const handleSubmit = () => PromiseBuilder__Run_212F1D4B(promise, PromiseBuilder__Delay_62FBFDE1(promise, () => {
                 const url = "http://localhost:1234/login";
-                const data = Login_Encoder_5FECCC18(model.login);
+                const data = Login_Encoder_Z7C94CB5(model.login);
                 return PromiseBuilder__Run_212F1D4B_1(promise_1, PromiseBuilder__Delay_62FBFDE1_1(promise_1, () => {
                     let data_3, caseStrategy_2, extra_2;
                     return ((data_3 = some(data), (caseStrategy_2 = void 0, (extra_2 = void 0, (() => {
@@ -139,6 +138,7 @@ export function update(msg, model) {
         }
         case 3: {
             const res = msg.fields[0];
+            RouterModule_nav(singleton("main"), 1, 2);
             toConsole(printf("%A"))(res);
             return [model, Cmd_none()];
         }
@@ -211,6 +211,4 @@ export function view(model, dispatch) {
     });
 }
 
-ProgramModule_run(Program_withReactSynchronous("elmish-app", ProgramModule_mkProgram(init, update, view)));
-
-//# sourceMappingURL=LoginPage.fs.js.map
+//# sourceMappingURL=Login.fs.js.map

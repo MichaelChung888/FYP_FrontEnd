@@ -1,18 +1,13 @@
-module LoginPage
+module Login
 
 open Thoth.Fetch
 open Thoth.Json
 
-open Fable.Core
-open Fable.React
-open Fable.React.Props
-open Fable.FontAwesome
-
 open Elmish
-open Elmish.React
 
 open Feliz
 open Feliz.Bulma
+open Feliz.Router
 
 open color
 
@@ -62,35 +57,8 @@ type Msg =
 //                        Model Initalise [init : unit -> Model]                        //
 //--------------------------------------------------------------------------------------//
 
-let init () = { login = { username = ""; password = "" } }, Cmd.none
-
-//--------------------------------------------------------------------------------------//
-//                                   Other Functions                                    //
-//--------------------------------------------------------------------------------------//
-
-(*
-let handleSubmit (model: Model) (ev: Browser.Types.Event) : JS.Promise<_> =
-    ev.preventDefault()
-    (*
-    task {
-        use client = new HttpClient()
-        // use an anonymous record
-        let data = {|
-            username = model.username
-            password = model.password
-        |}
-        let jsonData = Json.serialize data 
-        let postData = new StringContent(jsonData)
-
-        let! sendData = 
-            let url = "http://localhost:1234/test"
-            client.PostAsync(url, postData)
-        
-        //let! response = sendData.Content.ReadFromJsonAsync<string>()
-        return sendData
-    }
-    *)
-*)
+let init () : Model * Cmd<Msg> = 
+    { login = { username = ""; password = "" } }, Cmd.none
 
 //--------------------------------------------------------------------------------------//
 //                    Model Update [update : Msg -> Model -> Model]                     //
@@ -112,6 +80,7 @@ let update (msg: Msg) (model: Model) =
             }
         model, Cmd.OfPromise.either handleSubmit () Success Error
     | Success res ->
+        Router.navigatePath("main")
         printfn "%A" res
         model, Cmd.none
     | Error res ->
@@ -225,7 +194,3 @@ let view (model: Model) (dispatch: Msg -> unit) =
             ]
         ]
     ]
-
-Program.mkProgram init update view
-|> Program.withReactSynchronous "elmish-app"
-|> Program.run
