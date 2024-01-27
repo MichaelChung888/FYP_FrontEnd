@@ -3,7 +3,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="pages/Login.fs" />
+    <Compile Include="pages/Login/Login.fs" />
+    <Compile Include="pages/MainStudent/MainStudent.fs" />
+    <Compile Include="pages/Projects/Projects.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
